@@ -96,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     Toast.makeText(MainActivity.this, "Preencha o E-mail!", Toast.LENGTH_SHORT).show();
                 }
-                ;
+
             }
         });
     }

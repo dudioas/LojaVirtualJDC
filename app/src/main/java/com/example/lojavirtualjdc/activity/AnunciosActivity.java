@@ -21,9 +21,9 @@ public class AnunciosActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_anuncios);
 
-        //Configurações iniciais
+        //configuração iniciais
         autenticacao = ConfiguracaoFirebase.getReferenciaAutenticacao();
-
+        //autenticacao.signOut();
     }
 
     @Override
@@ -33,32 +33,32 @@ public class AnunciosActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onPrepareOptionsMenu(Menu menu){
-        if (autenticacao.getCurrentUser() == null) {//usuario deslogado
+    public boolean onPrepareOptionsMenu(Menu menu) {
+
+        if(autenticacao.getCurrentUser() == null){//usuario deslogado
             menu.setGroupVisible(R.id.group_deslogado, true);
-        }else{// Usuario logado
+        }else{//usuario logado
             menu.setGroupVisible(R.id.group_logado,true);
-
         }
-
         return super.onPrepareOptionsMenu(menu);
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
         switch (item.getItemId()){
-            case R.id.menu_cadastrar :
+            case R.id.menu_cadastrar:
                 startActivity(new Intent(getApplicationContext(), CadastroActivity.class));
                 break;
-
             case R.id.menu_sair:
                 autenticacao.signOut();
                 invalidateOptionsMenu();
                 break;
             case R.id.menu_anuncios:
-
+                startActivity(new Intent(getApplicationContext(), MeusAnunciosActivity.class));
                 break;
         }
+
         return super.onOptionsItemSelected(item);
     }
 }

@@ -45,5 +45,9 @@ dependencies {
     implementation 'com.google.firebase:firebase-storage'
     implementation 'com.google.firebase:firebase-auth'
     implementation platform('com.google.firebase:firebase-bom:28.2.0')
+    //dependencia mascara moeda
+    implementation 'com.github.BlacKCaT27:CurrencyEditText:2.0.2'
+    //dependencia mascara telefone
+    implementation 'com.github.santalu:maskara:1.0.0'
 
 }

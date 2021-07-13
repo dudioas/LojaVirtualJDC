@@ -1,6 +1,32 @@
 <resources>
     <string name="app_name">LojaVirtualJDC</string>
-    <string name="title_activity_meus_anuncios">MeusAnunciosActivity</string>
+    <string name="title_activity_meus_anuncios">Meus Anúncios</string>
+    <string-array name="estados">
+        <item>AC</item>
+        <item>AL</item>
+        <item>AM</item>
+        <item>AP</item>
+        <item>BA</item>
+        <item>CE</item>
+        <item>DF</item>
+        <item>ES</item>
+        <item>GO</item>
+        <item>MA</item>
+        <item>MG</item>
+        <item>SP</item>
+        <item>RJ</item>
+    </string-array>
+    
+    <string-array name="categorias">
+        <item>Automóveis</item>
+        <item>Imóveis</item>
+        <item>Eletronicos</item>
+        <item>Moda</item>
+        <item>Esportes</item>
+        <item>Músicas</item>
+        <item>Infantil</item>
+        <item>Agro</item>
+    </string-array>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>

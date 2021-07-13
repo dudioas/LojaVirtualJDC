@@ -45,9 +45,19 @@ dependencies {
     implementation 'com.google.firebase:firebase-storage'
     implementation 'com.google.firebase:firebase-auth'
     implementation platform('com.google.firebase:firebase-bom:28.2.0')
+
     //dependencia mascara moeda
     implementation 'com.github.BlacKCaT27:CurrencyEditText:2.0.2'
+
     //dependencia mascara telefone
     implementation 'com.github.santalu:maskara:1.0.0'
 
+    //dependencia dialog de progresso
+    implementation 'com.github.d-max:spots-dialog:1.1@aar'
+
+    //dependencias para picasso
+    implementation 'com.squareup.picasso:picasso:2.71828'
+    //test
+    //implementation 'androidx.multidex:multidex:2.0.1'
 }
+

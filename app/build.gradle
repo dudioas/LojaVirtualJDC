@@ -7,7 +7,8 @@ android {
     compileSdkVersion 30
     buildToolsVersion "30.0.3"
 
-    defaultConfig {
+    defaultConfig { 
+        multiDexEnabled true
         applicationId "com.example.lojavirtualjdc"
         minSdkVersion 16
         targetSdkVersion 30
@@ -49,5 +50,8 @@ dependencies {
     implementation 'com.github.BlacKCaT27:CurrencyEditText:2.0.2'
     //dependencia mascara telefone
     implementation 'com.github.santalu:maskara:1.0.0'
+
+    // aumentar o espaço de metodos
+    implementation "androidx.multidex:multidex:2.0.1"
 
 }

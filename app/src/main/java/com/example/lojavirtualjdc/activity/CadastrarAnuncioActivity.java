@@ -74,10 +74,10 @@ public class CadastrarAnuncioActivity<CurrencyEd> extends AppCompatActivity impl
     public void salvarAnuncio(){
        // Salvar imagem no Storage
 
-        for (int i=0; i <= listaFotosRecuperadas.size(); i++ ){
-            String urlImagem = listaFotosRecuperadas.get(i);
+        for (int index=0; index < listaFotosRecuperadas.size(); index++ ){
+            String urlImagem = listaFotosRecuperadas.get(index);
            int tamanhoLista  = listaFotosRecuperadas.size();
-          salvarFotoStorage(urlImagem, tamanhoLista, i );
+          salvarFotoStorage(urlImagem, tamanhoLista, index );
        }
 
 
@@ -87,48 +87,44 @@ public class CadastrarAnuncioActivity<CurrencyEd> extends AppCompatActivity impl
     private void salvarFotoStorage(String urlString, int totalFotos, int contador){
 
         // Criar nó no storage
-        StorageReference imagemAnuncio = storage.child("imagens")
+        final StorageReference imagemAnuncio = storage.child("imagens")
                 .child("anuncios")
                 .child(anuncio.getIdAnuncio())
                 .child("imagem" + contador);
 
         // Fazer upload do arquivo
-        UploadTask uploadTask = imagemAnuncio.putFile( Uri.parse(urlString));
+        UploadTask uploadTask = imagemAnuncio.putFile(Uri.parse(urlString));
         uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                 imagemAnuncio.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
                     @Override
                     public void onComplete(@NonNull Task<Uri> task) {
+                        if(task.isSuccessful()){
+                            Uri firebaseUrl = task.getResult();
+                            String urlConvertida = firebaseUrl.toString();
 
-                        Uri firebaseUrl = task.getResult();
-                        String urlConvertida = firebaseUrl.toString();
+                            listaURLFotos.add(urlConvertida);
 
-                        listaURLFotos.add(urlConvertida);
+                            if(totalFotos == listaURLFotos.size()){
+                                anuncio.setFotos(listaURLFotos);
+                                anuncio.salvar();
 
-                        if (totalFotos == listaURLFotos.size()) {
-                            anuncio.setFotos(listaURLFotos);
-                            anuncio.salvar();
-
-                            //dialog.dismiss();
-                            //finish();
+                                //dialog.dismiss();
+                                //finish();
+                            }
                         }
                     }
                 });
                 //taskSnapshot.getMetadata().getReference().getDownloadUrl().toString();
             }
-
-
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
                 exibirMensagemErro("Falha ao fazer upload");
-                Log.i("INFO", "Falha ao fazer upload: " + e.getMessage());
-
+                Log.i("Info","Falha ao fazer upload: " +e.getMessage());
             }
         });
-
-
     }
 
     private Anuncio configurarAnuncio(){
@@ -152,7 +148,7 @@ public class CadastrarAnuncioActivity<CurrencyEd> extends AppCompatActivity impl
 
     }
 
-
+    //botão cadastrar
     public void validarDadosAnuncio(View view){
 
        anuncio = configurarAnuncio();
@@ -234,7 +230,6 @@ public class CadastrarAnuncioActivity<CurrencyEd> extends AppCompatActivity impl
             // Configura imagem no ImageView
             if (requestCode == 1){
                 imagem1.setImageURI(imagemSelecionada);
-
             }else if(requestCode == 2){
                 imagem2.setImageURI(imagemSelecionada);
             }else if(requestCode == 3){

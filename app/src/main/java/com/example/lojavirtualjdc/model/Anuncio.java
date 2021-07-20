@@ -3,9 +3,10 @@ package com.example.lojavirtualjdc.model;
 import com.example.lojavirtualjdc.helper.ConfiguracaoFirebase;
 import com.google.firebase.database.DatabaseReference;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Anuncio {
+public class Anuncio implements Serializable {
 
     private String idAnuncio;
     private String estado;
@@ -36,8 +37,40 @@ public class Anuncio {
 
    public void salvarAnuncioPublico(){
        DatabaseReference anuncioRef = ConfiguracaoFirebase.getFirebase().child("anuncios");
-       anuncioRef.child(getEstado()).child(getCategoria()).child(getIdAnuncio()).setValue(this);
+       anuncioRef.child(getEstado())
+               .child(getCategoria())
+               .child(getIdAnuncio())
+               .setValue(this);
    }
+
+   public void remover(){
+
+       String idUsuario = ConfiguracaoFirebase.getIdUsuario();
+       DatabaseReference anuncioRef = ConfiguracaoFirebase.getFirebase()
+               .child("meus anuncios")
+               .child(idUsuario)
+               .child(getIdAnuncio());
+
+       anuncioRef.removeValue();
+       removerAuncioPublico();
+
+   }
+
+    public void removerAuncioPublico(){
+
+
+        DatabaseReference anuncioRef = ConfiguracaoFirebase.getFirebase()
+                .child("anuncios")
+                .child(getEstado())
+                .child(getCategoria())
+                .child(getIdAnuncio());
+
+        anuncioRef.removeValue();
+
+
+
+
+    }
 
 
     public String getIdAnuncio() {

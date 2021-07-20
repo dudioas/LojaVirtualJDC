@@ -40,16 +40,21 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import dmax.dialog.SpotsDialog;
+
+import static dmax.dialog.SpotsDialog.*;
+
 public class CadastrarAnuncioActivity<CurrencyEd> extends AppCompatActivity implements View.OnClickListener{
 
     private EditText campoTitulo, campoDescricao;
     private CurrencyEditText campoValor;
     private MaskEditText campoTelefone;
     private Anuncio anuncio;
-    private AlertDialog dialog;
+    private android.app.AlertDialog dialog;
     private StorageReference storage;
     private ImageView imagem1,imagem2,imagem3;
     private Spinner campoEstado, campoCategoria;
+
 
     private String[] permissoes = new String[]{
             Manifest.permission.READ_EXTERNAL_STORAGE
@@ -72,6 +77,14 @@ public class CadastrarAnuncioActivity<CurrencyEd> extends AppCompatActivity impl
     }
 
     public void salvarAnuncio(){
+
+        dialog = new SpotsDialog.Builder()
+                .setContext( this )
+                .setMessage("Salvando Anúncio")
+                .setCancelable( false )
+                .build();
+        dialog.show();
+
        // Salvar imagem no Storage
 
         for (int index=0; index < listaFotosRecuperadas.size(); index++ ){
@@ -79,8 +92,6 @@ public class CadastrarAnuncioActivity<CurrencyEd> extends AppCompatActivity impl
            int tamanhoLista  = listaFotosRecuperadas.size();
           salvarFotoStorage(urlImagem, tamanhoLista, index );
        }
-
-
 
     }
 
@@ -110,8 +121,8 @@ public class CadastrarAnuncioActivity<CurrencyEd> extends AppCompatActivity impl
                                 anuncio.setFotos(listaURLFotos);
                                 anuncio.salvar();
 
-                                //dialog.dismiss();
-                                //finish();
+                                dialog.dismiss();
+                                finish();
                             }
                         }
                     }
@@ -131,7 +142,7 @@ public class CadastrarAnuncioActivity<CurrencyEd> extends AppCompatActivity impl
         String estado = campoEstado.getSelectedItem().toString();
         String categoria = campoCategoria.getSelectedItem().toString();
         String titulo = campoTitulo.getText().toString();
-        String valor = String.valueOf(campoValor.getRawValue());
+        String valor = campoValor.getText().toString();
         String telefone = campoTelefone.getText().toString();
         String descricao = campoDescricao.getText().toString();
 

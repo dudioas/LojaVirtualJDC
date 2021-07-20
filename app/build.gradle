@@ -4,10 +4,12 @@ plugins {
 }
 
 android {
+
     compileSdkVersion 30
     buildToolsVersion "30.0.3"
 
     defaultConfig {
+        multiDexEnabled true
         applicationId "com.example.lojavirtualjdc"
         minSdkVersion 16
         targetSdkVersion 30
@@ -57,7 +59,13 @@ dependencies {
     implementation 'com.github.d-max:spots-dialog:1.1@aar'
 
     //dependencias para picasso
-//    implementation 'com.squareup.picasso:picasso:2.71828'
+   implementation 'com.squareup.picasso:picasso:2.71828'
+
+    //Dependências do carousel View
+    implementation 'com.synnapps:carouselview:0.1.5'
+
+    //aumentar espaço de metodos
+    implementation "androidx.multidex:multidex:2.0.1"
 
 }
 
